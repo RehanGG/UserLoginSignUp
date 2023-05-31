@@ -18,7 +18,7 @@ public class FrontController extends HttpServlet {
 	private String controller;
 	//private UserController userController;
 	//private String view;
-	private String kase;
+	private String kase, userId = null;
 	private int count=0;
        
     
@@ -53,6 +53,8 @@ public class FrontController extends HttpServlet {
 //			
 //		}
 		
+		
+		
 		System.out.println("CONTROLLER: " + controller);
 		System.out.println("KASE: " + kase);
 		
@@ -67,6 +69,7 @@ public class FrontController extends HttpServlet {
 //			request.setAttribute("view",view);
 			//request.setAttribute("kase", kase);
 			dispatch = request.getRequestDispatcher("/UserController");
+			request.setAttribute("user", userId);
 			dispatch.forward(request, response);
 			
 		}else if(controller.equals("static")) {
@@ -83,6 +86,7 @@ public class FrontController extends HttpServlet {
 	}
 	
 	public void resolveUrl(String uri0){
+		userId = null;
 		System.out.println("inside resolveURL with url:"+uri0);
 	
 		if(uri0== null){
@@ -119,7 +123,15 @@ public class FrontController extends HttpServlet {
 			kase = parts[parts.length-1];
 			//System.out.println("kase from resolve URL:"+kase);
 			//view = parts[parts.length-1];
-		}else{// written just for now
+		} else if(uri0.split("/").length == 4) {
+			String parts[] = uri0.split("/");
+			controller = parts[parts.length-3];
+			kase = parts[parts.length-2];
+			userId = parts[parts.length-1];
+			
+		}
+		
+		else{// written just for now
 			System.out.println("%%%%%%%%%%%%%%%  not able to handle this url:"+uri0+"%%%%%%%%%%%%%%%%%%%%");
 			String parts[] = uri0.split("/");
 			for(int i=0;i<parts.length;i++){

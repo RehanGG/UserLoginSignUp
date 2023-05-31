@@ -41,6 +41,18 @@ public class UserDAO {
 		return status;
 	}
 	
+	public User getUserByUserId(String userId) {
+		try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM users WHERE id='"+Integer.parseInt(userId)+"'");
+            rs.next();
+            return new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"), rs.getString("gender"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+		return null;
+	}
+	
 	public User getUserByUsername(String username) {
 		try {
             Statement statement = connection.createStatement();

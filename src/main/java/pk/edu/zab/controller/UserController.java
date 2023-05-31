@@ -62,7 +62,9 @@ public class UserController extends HttpServlet {
 			if(isUserLoggedIn(request)) {
 				response.sendRedirect("/user/profile");
 				return;
-			} 
+			}
+			
+			
 			
 			//view = (String) request.getAttribute("view");
 			request.getRequestDispatcher(view).forward(request, response);
@@ -78,17 +80,27 @@ public class UserController extends HttpServlet {
 		}else if(kase.equals("profile") || kase.equals("user")){
 			
 			
-			if(!isUserLoggedIn(request)) {
-				response.sendRedirect("/user/login");
-				return;
+			String user2 = (String) request.getAttribute("user");
+			if(user2 == null) {
+			
+				if(!isUserLoggedIn(request)) {
+					response.sendRedirect("/user/login");
+					return;
+				}
+				User user = userDao.getUserByUsername((String) request.getSession(false).getAttribute("username"));
+				request.setAttribute("user", user);
+				//view = (String) request.getAttribute("view");
+				//request.getRequestDispatcher(view).forward(request, response);
+				
+				request.getRequestDispatcher("/WEB-INF/jsps/user/user.jsp").forward(request, response);
+			} else {
+				
+				
+				
+				User user = userDao.getUserByUserId(user2);
+				request.setAttribute("user", user);
+				request.getRequestDispatcher("/WEB-INF/jsps/user/user2.jsp").forward(request, response);
 			}
-			
-			User user = userDao.getUserByUsername((String) request.getSession(false).getAttribute("username"));
-			request.setAttribute("user", user);
-			//view = (String) request.getAttribute("view");
-			//request.getRequestDispatcher(view).forward(request, response);
-			
-			request.getRequestDispatcher("/WEB-INF/jsps/user/user.jsp").forward(request, response);
 			
 			
 		}else if(kase.equals("register-success")){
