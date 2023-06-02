@@ -8,14 +8,19 @@ public class User {
 	
 	private String fullName;
 	private String gender;
+	private String mobileNo;
+	private String email;
 	
-	public User(int id, String username, String fullName, String gender) {
+	
+
+	public User(int id, String username, String fullName, String gender, String mobileNo, String email) {
 		super();
 		this.id = id;
 		this.username = username;
-		
 		this.fullName = fullName;
 		this.gender = gender;
+		this.setMobileNo(mobileNo);
+		this.setEmail(email);
 	}
 
 	public int getId() {
@@ -50,13 +55,31 @@ public class User {
 		this.gender = gender;
 	}
 	
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public static User fromRequest(HttpServletRequest request) {
 		
 		String user = request.getParameter("username");
 		String gender = request.getParameter("gender");
 		String fullname = request.getParameter("fullname");
+		String mobileNo = request.getParameter("mobile");
+		String email = request.getParameter("email");
 		
-		return new User(-1, user, fullname, gender);
+		return new User(-1, user, fullname, gender, mobileNo, email);
 	}
 	
 }

@@ -21,6 +21,25 @@ public class UserDAO {
 		System.out.println(connection);
 	}
 	
+	public String updateUserProfile(String name, String gender, String userId) {
+		String status = "failed";
+		try {
+			
+        	PreparedStatement stmt = connection.prepareStatement("UPDATE users SET fullname=?, gender=? WHERE id=?");
+        	stmt.setString(1, name);
+        	stmt.setString(2, gender);
+        	stmt.setInt(3, Integer.parseInt(userId));
+        	stmt.executeUpdate();
+        	status="updated";
+           
+		}
+		catch (SQLException e) {
+			status="failed";
+			e.printStackTrace();
+		}
+		return status;
+	}
+	
 	public String changePassword(String username, String oldPass, String newPass) {
 		String status = "invalid";
 		try {
@@ -46,7 +65,7 @@ public class UserDAO {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM users WHERE id='"+Integer.parseInt(userId)+"'");
             rs.next();
-            return new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"), rs.getString("gender"));
+            return new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"), rs.getString("gender"), rs.getString("mobile"), rs.getString("email"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +77,7 @@ public class UserDAO {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM users WHERE username='"+username+"'");
             rs.next();
-            return new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"), rs.getString("gender"));
+            return new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"), rs.getString("gender"), rs.getString("mobile"), rs.getString("email"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,11 +106,13 @@ public class UserDAO {
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement.executeQuery("SELECT * FROM users WHERE username='"+user.getUsername()+"'");
 			if(!rs.next()) {
-				PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(username, password, gender, fullname) VALUES (?, ?, ?, ?)");
+				PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users(username, password, gender, fullname, email, mobile) VALUES (?, ?, ?, ?, ?, ?)");
 				preparedStatement.setString(1, user.getUsername());
 	            preparedStatement.setString(2, password);
 	            preparedStatement.setString(3, user.getGender());
 	            preparedStatement.setString(4, user.getFullName());
+	            preparedStatement.setString(5, user.getEmail());
+	            preparedStatement.setString(6, user.getMobileNo());
 	            preparedStatement.executeUpdate();
 	            status = "registered";
 			}

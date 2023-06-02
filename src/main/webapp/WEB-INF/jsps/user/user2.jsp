@@ -18,6 +18,8 @@
       <p><strong>User ID:</strong> <c:out value="${user.getId()}" /></p>
       <p><strong>Username:</strong> <c:out value="${user.getUsername()}" /></p>
       <p><strong>Full Name:</strong>  <c:out value="${user.getFullName()}" /></p>
+      <p><strong>Email:</strong>  <c:out value="${user.getEmail()}" /></p>
+      <p><strong>Mobile No:</strong>  <c:out value="${user.getMobileNo()}" /></p>
       <p><strong>Gender:</strong>  <c:out value="${user.getGender()}" /></p>
     </div>
   </div>

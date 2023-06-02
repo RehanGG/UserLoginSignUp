@@ -14,6 +14,14 @@
         <label for="fullname">Full Name:</label>
         <input name="fullname" type="text" id="fullname" class="form-control" required>
       </div>
+       <div class="form-group">
+        <label for="fullname">Email:</label>
+        <input name="email" type="text" id="email" class="form-control" required>
+      </div>
+       <div class="form-group">
+        <label for="fullname">Mobile No:</label>
+        <input name="mobile" type="text" id="mobile" class="form-control" required>
+      </div>
       <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" class="form-control" required>

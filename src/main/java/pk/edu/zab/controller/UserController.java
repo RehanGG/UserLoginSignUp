@@ -77,7 +77,36 @@ public class UserController extends HttpServlet {
 			//view = (String) request.getAttribute("view");
 			//.getRequestDispatcher(view).forward(request, response);
 			
-		}else if(kase.equals("profile") || kase.equals("user")){
+		}else if(kase.equals("edit-profile")) {
+			
+			if(!isUserLoggedIn(request)) {
+				response.sendRedirect("/user/login");
+				return;
+			}
+			
+			User user = userDao.getUserByUsername((String) request.getSession(false).getAttribute("username"));
+			request.setAttribute("user", user);
+			request.getRequestDispatcher(view).forward(request, response);
+			
+			
+		}  else if(kase.equals("confirm-edit-profile")) {
+			
+			if(!isUserLoggedIn(request)) {
+				response.sendRedirect("/user/login");
+				return;
+			}
+			
+			if(request.getParameter("name") == null) {
+				response.sendRedirect("/user/edit-profile");
+				return;
+			}
+			
+			String status = userDao.updateUserProfile(request.getParameter("name"), request.getParameter("gender"), request.getParameter("id"));
+			request.setAttribute("status", status);
+			request.getRequestDispatcher(view).forward(request, response);
+			
+			
+		} else if(kase.equals("profile") || kase.equals("user")){
 			
 			
 			String user2 = (String) request.getAttribute("user");

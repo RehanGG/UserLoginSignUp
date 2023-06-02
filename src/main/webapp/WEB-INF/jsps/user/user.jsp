@@ -15,8 +15,12 @@
     <a class="navbar-brand" href="#">User Profile</a>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
+        <a class="nav-link" href="/user/edit-profile">Edit Profile</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="/user/changepassword">Change Password</a>
       </li>
+      
       <li class="nav-item">
         <a class="nav-link" href="/user/logout">Logout</a>
       </li>
@@ -30,6 +34,8 @@
       <p><strong>User ID:</strong> <c:out value="${user.getId()}" /></p>
       <p><strong>Username:</strong> <c:out value="${user.getUsername()}" /></p>
       <p><strong>Full Name:</strong>  <c:out value="${user.getFullName()}" /></p>
+      <p><strong>Email:</strong>  <c:out value="${user.getEmail()}" /></p>
+      <p><strong>Mobile No:</strong>  <c:out value="${user.getMobileNo()}" /></p>
       <p><strong>Gender:</strong>  <c:out value="${user.getGender()}" /></p>
     </div>
   </div>
